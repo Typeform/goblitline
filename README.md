@@ -1,5 +1,5 @@
 # goblitline
-A Blitline client written in Go
+A [Blitline](http://www.blitline.com/) client written in Go
 
 
 ## TODO
@@ -7,3 +7,4 @@ A Blitline client written in Go
 - [ ] CLI tool
 - [ ] Custom s3 buckets
 - [ ] Testing
+- [ ] documentation
