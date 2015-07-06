@@ -9,11 +9,11 @@ import (
 	"github.com/lann/builder"
 )
 
-type job struct {
+type jobData struct {
 	ApplicationID       string            `json:"application_id"`
 	Hash                string            `json:"hash,omitempty"`
 	Src                 string            `json:"src"`
-	Functions           []function        `json:"functions"`
+	Functions           []functionData    `json:"functions"`
 	ImaggaTag           bool              `json:"imagga_tag,omitempty"`
 	WillRetryDeplay     uint              `json:"wait_retry_delay,omitempty"`
 	RetryPostback       bool              `json:"retry_postback,omitempty"`
@@ -31,49 +31,53 @@ type job struct {
 	LongRunning         bool              `json:"long_running,omitempty"`
 }
 
-type jobBuilder builder.Builder
+type JobBuilder builder.Builder
 
-func (b jobBuilder) ApplicationID(id string) jobBuilder {
-	return builder.Set(b, "ApplicationID", id).(jobBuilder)
+func init() {
+	builder.Register(JobBuilder{}, jobData{})
 }
 
-func (b jobBuilder) Hash(hash string) jobBuilder {
-	return builder.Set(b, "Hash", hash).(jobBuilder)
+func (b JobBuilder) ApplicationID(id string) JobBuilder {
+	return builder.Set(b, "ApplicationID", id).(JobBuilder)
 }
 
-func (b jobBuilder) Src(src string) jobBuilder {
-	return builder.Set(b, "Src", src).(jobBuilder)
+func (b JobBuilder) Hash(hash string) JobBuilder {
+	return builder.Set(b, "Hash", hash).(JobBuilder)
 }
 
-func (b jobBuilder) Functions(functions ...functionBuilder) jobBuilder {
+func (b JobBuilder) Src(src string) JobBuilder {
+	return builder.Set(b, "Src", src).(JobBuilder)
+}
+
+func (b JobBuilder) Functions(functions ...FunctionBuilder) JobBuilder {
 	for _, function := range functions {
 		f := function.build()
-		b = builder.Append(b, "Functions", f).(jobBuilder)
+		b = builder.Append(b, "Functions", f).(JobBuilder)
 	}
 	return b
 }
 
-func (b jobBuilder) ImaggaTag(v bool) jobBuilder {
-	return builder.Set(b, "ImaggaTag", v).(jobBuilder)
+func (b JobBuilder) ImaggaTag(v bool) JobBuilder {
+	return builder.Set(b, "ImaggaTag", v).(JobBuilder)
 }
 
-func (b jobBuilder) WillRetryDeplay(delay uint) jobBuilder {
-	return builder.Set(b, "WillRetryDeplay", delay).(jobBuilder)
+func (b JobBuilder) WillRetryDeplay(delay uint) JobBuilder {
+	return builder.Set(b, "WillRetryDeplay", delay).(JobBuilder)
 }
 
-func (b jobBuilder) RetryPostback(v bool) jobBuilder {
-	return builder.Set(b, "RetryPostback", v).(jobBuilder)
+func (b JobBuilder) RetryPostback(v bool) JobBuilder {
+	return builder.Set(b, "RetryPostback", v).(JobBuilder)
 }
 
-func (b jobBuilder) ExtendedMetadata(v bool) jobBuilder {
-	return builder.Set(b, "ExtendedMetadata", v).(jobBuilder)
+func (b JobBuilder) ExtendedMetadata(v bool) JobBuilder {
+	return builder.Set(b, "ExtendedMetadata", v).(JobBuilder)
 }
 
-func (b jobBuilder) GetExif(v bool) jobBuilder {
-	return builder.Set(b, "GetExif", v).(jobBuilder)
+func (b JobBuilder) GetExif(v bool) JobBuilder {
+	return builder.Set(b, "GetExif", v).(JobBuilder)
 }
 
-func (b jobBuilder) PassthroughMetadata(k, v string) jobBuilder {
+func (b JobBuilder) PassthroughMetadata(k, v string) JobBuilder {
 	var hash map[string]string
 	meta, ok := builder.Get(b, "PassthroughMetadata")
 	if ok {
@@ -82,34 +86,34 @@ func (b jobBuilder) PassthroughMetadata(k, v string) jobBuilder {
 		hash = make(map[string]string)
 	}
 	hash[k] = v
-	return builder.Set(b, "PassthroughMetadata", hash).(jobBuilder)
+	return builder.Set(b, "PassthroughMetadata", hash).(JobBuilder)
 }
 
-func (b jobBuilder) IncludeIPTC(v bool) jobBuilder {
-	return builder.Set(b, "IncludeIPTC", v).(jobBuilder)
+func (b JobBuilder) IncludeIPTC(v bool) JobBuilder {
+	return builder.Set(b, "IncludeIPTC", v).(JobBuilder)
 }
 
-func (b jobBuilder) SuppressAutoOrient(v bool) jobBuilder {
-	return builder.Set(b, "SupressAutoOrient", v).(jobBuilder)
+func (b JobBuilder) SuppressAutoOrient(v bool) JobBuilder {
+	return builder.Set(b, "SupressAutoOrient", v).(JobBuilder)
 }
 
-func (b jobBuilder) SrcType(src_type string) jobBuilder {
-	return builder.Set(b, "SrcType", src_type).(jobBuilder)
+func (b JobBuilder) SrcType(src_type string) JobBuilder {
+	return builder.Set(b, "SrcType", src_type).(JobBuilder)
 }
 
-func (b jobBuilder) PostbackURL(src_type string) jobBuilder {
-	return builder.Set(b, "PostbackURL", src_type).(jobBuilder)
+func (b JobBuilder) PostbackURL(src_type string) JobBuilder {
+	return builder.Set(b, "PostbackURL", src_type).(JobBuilder)
 }
 
-func (b jobBuilder) WaitForS3(v bool) jobBuilder {
-	return builder.Set(b, "WaitForS3", v).(jobBuilder)
+func (b JobBuilder) WaitForS3(v bool) JobBuilder {
+	return builder.Set(b, "WaitForS3", v).(JobBuilder)
 }
 
-func (b jobBuilder) ContentTypeJson(v bool) jobBuilder {
-	return builder.Set(b, "ContentTypeJson", v).(jobBuilder)
+func (b JobBuilder) ContentTypeJson(v bool) JobBuilder {
+	return builder.Set(b, "ContentTypeJson", v).(JobBuilder)
 }
 
-func (b jobBuilder) PostbackHeaders(k, v string) jobBuilder {
+func (b JobBuilder) PostbackHeaders(k, v string) JobBuilder {
 	var hash map[string]string
 	meta, ok := builder.Get(b, "PostbackHeaders")
 	if ok {
@@ -118,22 +122,22 @@ func (b jobBuilder) PostbackHeaders(k, v string) jobBuilder {
 		hash = make(map[string]string)
 	}
 	hash[k] = v
-	return builder.Set(b, "PostbackHeaders", hash).(jobBuilder)
+	return builder.Set(b, "PostbackHeaders", hash).(JobBuilder)
 }
 
-func (b jobBuilder) V(v string) jobBuilder {
-	return builder.Set(b, "V", v).(jobBuilder)
+func (b JobBuilder) V(v string) JobBuilder {
+	return builder.Set(b, "V", v).(JobBuilder)
 }
 
-func (b jobBuilder) LongRunning(v bool) jobBuilder {
-	return builder.Set(b, "LongRunning", v).(jobBuilder)
+func (b JobBuilder) LongRunning(v bool) JobBuilder {
+	return builder.Set(b, "LongRunning", v).(JobBuilder)
 }
 
-func (b jobBuilder) build() job {
-	return builder.GetStruct(b).(job)
+func (b JobBuilder) build() jobData {
+	return builder.GetStruct(b).(jobData)
 }
 
-func (b jobBuilder) Post() error {
+func (b JobBuilder) Post() error {
 	built := b.build()
 	// TODO: validate
 
@@ -156,5 +160,3 @@ func (b jobBuilder) Post() error {
 
 	return nil
 }
-
-var Job = builder.Register(jobBuilder{}, job{}).(jobBuilder)

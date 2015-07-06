@@ -2,27 +2,25 @@ package goblitline
 
 import "github.com/lann/builder"
 
-type container struct {
+type containerData struct {
 	ImageIdentifier string `json:"image_identifier"`
 	Quality         uint   `json:"quality"`
 }
 
-type containerBuilder builder.Builder
+type ContainerBuilder builder.Builder
 
-func (b containerBuilder) ImageIdentifier(id string) containerBuilder {
-	return builder.Set(b, "ImageIdentifier", id).(containerBuilder)
+func init() {
+	builder.Register(ContainerBuilder{}, containerData{})
 }
 
-func (b containerBuilder) Quality(quality uint) containerBuilder {
-	return builder.Set(b, "Quality", quality).(containerBuilder)
+func (b ContainerBuilder) ImageIdentifier(id string) ContainerBuilder {
+	return builder.Set(b, "ImageIdentifier", id).(ContainerBuilder)
 }
 
-func (b containerBuilder) build() container {
-	return builder.GetStruct(b).(container)
+func (b ContainerBuilder) Quality(quality uint) ContainerBuilder {
+	return builder.Set(b, "Quality", quality).(ContainerBuilder)
 }
 
-var Container = builder.Register(
-	containerBuilder{},
-	container{
-		Quality: 75,
-	}).(containerBuilder)
+func (b ContainerBuilder) build() containerData {
+	return builder.GetStruct(b).(containerData)
+}

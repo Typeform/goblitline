@@ -5,18 +5,16 @@ import (
 )
 
 func main() {
-	con := Container.Quality(10)
+	con := Container("id").Quality(10)
 
-	fun := Function.
-		Name("F2").
+	fun := Function("F2").
 		Params("a", "b", "c").
 		Save(con)
 
-	job := Job.
-		ApplicationID("0WA9Tv18J266Y-hmy7Z-RCg").
+	job := Job("0WA9Tv18J266Y-hmy7Z-RCg").
 		Hash("X").
 		Src("src").
-		Functions(Function.Name("F1")).
+		Functions(Function("F1")).
 		ImaggaTag(true).
 		WillRetryDeplay(1).
 		RetryPostback(true).
