@@ -1,2 +1,2 @@
 # goblitline
-A Go Blintline client
+A Blitline client written in Go
