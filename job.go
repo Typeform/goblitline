@@ -137,26 +137,26 @@ func (b JobBuilder) build() jobData {
 	return builder.GetStruct(b).(jobData)
 }
 
-func (b JobBuilder) Post() error {
+func (b JobBuilder) Post() (*Response, error) {
 	built := b.build()
 	// TODO: validate
 
 	job, err := json.Marshal(built)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	resp, err := http.Post("http://api.blitline.com/job", "application/json", bytes.NewReader(job))
 
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	defer resp.Body.Close()
-	response := Response{}
+	response := &Response{}
 
-	json.NewDecoder(resp.Body).Decode(&response)
+	json.NewDecoder(resp.Body).Decode(response)
 	fmt.Printf("%#v\n", response)
 
-	return nil
+	return response, nil
 }

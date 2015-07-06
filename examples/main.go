@@ -1,20 +1,22 @@
 package main
 
 import (
+	"os"
+
 	. "github.com/gchaincl/goblitline"
 )
 
 func main() {
-	con := Container("id").Quality(10)
+	con := Container("id").Quality(100)
 
-	fun := Function("F2").
-		Params("a", "b", "c").
+	fun := Function("annotate").
+		Params("text", "Valpo").
+		Params("color", "#ffffff").
 		Save(con)
 
-	job := Job("0WA9Tv18J266Y-hmy7Z-RCg").
-		Hash("X").
-		Src("src").
-		Functions(Function("F1")).
+	job := Job(os.Getenv("BLITLINE_APP_ID")).
+		//Hash("X").
+		Functions(fun).
 		ImaggaTag(true).
 		WillRetryDeplay(1).
 		RetryPostback(true).
@@ -25,14 +27,16 @@ func main() {
 		IncludeIPTC(true).
 		SuppressAutoOrient(true).
 		SrcType("source type").
-		PostbackURL("post back url").
-		PostbackHeaders("X-API", "foo").
-		PostbackHeaders("X-TKN", "bar").
-		WaitForS3(true).
-		ContentTypeJson(true).
-		V("1.2").
-		LongRunning(true)
+		/*
+			PostbackURL("post back url").
+			PostbackHeaders("X-API", "foo").
+			PostbackHeaders("X-TKN", "bar").
+			WaitForS3(true).
+			ContentTypeJson(true).
+			V("1.2").
+			LongRunning(true)
+		*/
+		Src("http://www.wondermondo.com/Images/SAmerica/Chile/Valparaiso/Valparaiso.jpg")
 
-	job = job.Functions(fun)
 	job.Post()
 }
