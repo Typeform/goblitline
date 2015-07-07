@@ -45,3 +45,4 @@ By writing this:
 - [ ] Custom s3 buckets
 - [x] Testing
 - [x] documentation
+- [ ] Implement Listen/Polling
