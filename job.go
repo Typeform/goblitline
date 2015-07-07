@@ -3,8 +3,6 @@ package goblitline
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
-	"net/http"
 
 	"github.com/lann/builder"
 )
@@ -137,31 +135,12 @@ func (b JobBuilder) build() jobData {
 	return builder.GetStruct(b).(jobData)
 }
 
-func (b JobBuilder) ToJson() string {
-	bytes, _ := json.MarshalIndent(b.build(), "", "  ")
-	return string(bytes)
+func (b JobBuilder) ToJson() *bytes.Buffer {
+	doc, _ := json.Marshal(b.build())
+	return bytes.NewBuffer(doc)
 }
 
 func (b JobBuilder) Post() (*Response, error) {
-	built := b.build()
-	// TODO: validate
-
-	job, err := json.Marshal(built)
-	if err != nil {
-		return nil, err
-	}
-
-	resp, err := http.Post("http://api.blitline.com/job", "application/json", bytes.NewReader(job))
-
-	if err != nil {
-		return nil, err
-	}
-
-	defer resp.Body.Close()
-	response := &Response{}
-
-	json.NewDecoder(resp.Body).Decode(response)
-	fmt.Printf("%#v\n", response)
-
-	return response, nil
+	body := b.ToJson()
+	return Post(body)
 }

@@ -31,6 +31,14 @@ func (b FunctionBuilder) Params(key string, value interface{}) FunctionBuilder {
 	return builder.Set(b, "Params", hash).(FunctionBuilder)
 }
 
+func (b FunctionBuilder) Functions(functions ...FunctionBuilder) FunctionBuilder {
+	for _, function := range functions {
+		f := function.build()
+		b = builder.Append(b, "Functions", f).(FunctionBuilder)
+	}
+	return b
+}
+
 func (b FunctionBuilder) Save(c ContainerBuilder) FunctionBuilder {
 	cont := c.build()
 	return builder.Set(b, "Container", &cont).(FunctionBuilder)

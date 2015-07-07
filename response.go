@@ -6,6 +6,7 @@ type Image struct {
 }
 
 type Results struct {
+	Error  string  `json:"error"`
 	JobID  string  `json:"job_id"`
 	Images []Image `json:"images"`
 }

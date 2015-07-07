@@ -36,7 +36,7 @@ func TestJobToToJson(t *testing.T) {
 		V("1.22").
 		LongRunning(true)
 
-	json := builder.ToJson()
+	json := builder.ToJson().String()
 
 	expectedJson :=
 		`
