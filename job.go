@@ -15,19 +15,19 @@ type jobData struct {
 	Src                 string            `json:"src"`
 	Functions           []functionData    `json:"functions"`
 	ImaggaTag           bool              `json:"imagga_tag,omitempty"`
-	WillRetryDeplay     uint              `json:"wait_retry_delay,omitempty"`
+	WaitRetryDeplay     uint              `json:"wait_retry_delay,omitempty"`
 	RetryPostback       bool              `json:"retry_postback,omitempty"`
 	ExtendedMetadata    bool              `json:"extended_metadata,omitempty"`
 	GetExif             bool              `json:"get_exif,omitempty"`
 	PassthroughMetadata map[string]string `json:"passthrough_metadata,omitempty"`
 	IncludeIPTC         bool              `json:"include_iptc,omitempty"`
-	SupressAutoOrient   bool              `json:"supress_auto_orient,omitempty"`
+	SuppressAutoOrient  bool              `json:"supress_auto_orient,omitempty"`
 	SrcType             string            `json:"src_type,omitempty"`
 	PostbackURL         string            `json:"postback_url,omitempty"`
 	PostbackHeaders     map[string]string `json:"postback_headers,omitempty"`
 	WaitForS3           bool              `json:"wait_for_s3,omitempty"`
 	ContentTypeJson     bool              `json:"content_type_json,omitempty"`
-	V                   string            `json:"V,omitempty"`
+	V                   string            `json:"v,omitempty"`
 	LongRunning         bool              `json:"long_running,omitempty"`
 }
 
@@ -61,8 +61,8 @@ func (b JobBuilder) ImaggaTag(v bool) JobBuilder {
 	return builder.Set(b, "ImaggaTag", v).(JobBuilder)
 }
 
-func (b JobBuilder) WillRetryDeplay(delay uint) JobBuilder {
-	return builder.Set(b, "WillRetryDeplay", delay).(JobBuilder)
+func (b JobBuilder) WaitRetryDeplay(delay uint) JobBuilder {
+	return builder.Set(b, "WaitRetryDeplay", delay).(JobBuilder)
 }
 
 func (b JobBuilder) RetryPostback(v bool) JobBuilder {
@@ -94,7 +94,7 @@ func (b JobBuilder) IncludeIPTC(v bool) JobBuilder {
 }
 
 func (b JobBuilder) SuppressAutoOrient(v bool) JobBuilder {
-	return builder.Set(b, "SupressAutoOrient", v).(JobBuilder)
+	return builder.Set(b, "SuppressAutoOrient", v).(JobBuilder)
 }
 
 func (b JobBuilder) SrcType(src_type string) JobBuilder {
@@ -135,6 +135,11 @@ func (b JobBuilder) LongRunning(v bool) JobBuilder {
 
 func (b JobBuilder) build() jobData {
 	return builder.GetStruct(b).(jobData)
+}
+
+func (b JobBuilder) ToJson() string {
+	bytes, _ := json.MarshalIndent(b.build(), "", "  ")
+	return string(bytes)
 }
 
 func (b JobBuilder) Post() (*Response, error) {
