@@ -3,8 +3,8 @@ A [Blitline](http://www.blitline.com/) client written in Go
 
 
 ## TODO
-- [ ] Function pipelining
+- [x] ~~Function pipelining~~
 - [ ] CLI tool
 - [ ] Custom s3 buckets
-- [ ] Testing
-- [ ] documentation
+- [x] Testing
+- [x] documentation

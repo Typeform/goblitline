@@ -21,8 +21,10 @@ func main() {
 		Params("y", -300).
 		Save(con)
 
+	f3 := Function("vignette").Save(con)
+
 	job := Job(os.Getenv("BLITLINE_APP_ID")).
-		Functions(f1, f2).
+		Functions(f1, f2, f3).
 		/*
 			Hash("md5").
 			ImaggaTag(true).
