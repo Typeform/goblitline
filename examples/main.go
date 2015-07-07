@@ -18,7 +18,7 @@ func main() {
 		//Hash("X").
 		Functions(fun).
 		ImaggaTag(true).
-		WillRetryDeplay(1).
+		WaitRetryDeplay(1).
 		RetryPostback(true).
 		ExtendedMetadata(true).
 		GetExif(true).
