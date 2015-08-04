@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	. "github.com/gchaincl/goblitline"
+	. "github.com/Typeform/goblitline"
 )
 
 func main() {
@@ -16,7 +16,7 @@ func main() {
 		Save(con)
 
 	f2 := Function("annotate").
-		Params("text", "github.com/gchaincl/goblitline").
+		Params("text", "github.com/Typeform/goblitline").
 		Params("color", "#000000").
 		Params("y", -300).
 		Save(con)
