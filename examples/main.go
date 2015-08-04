@@ -9,10 +9,10 @@ import (
 
 func main() {
 	destination := &S3Destination{Bucket: "my-bucket"}
-	destination_with_key := &S3Destination{Bucket: "my-bucket", Key: "my-custom-key"}
+	destinationWithKey := &S3Destination{Bucket: "my-bucket", Key: "my-custom-key"}
 
 	con1 := Container("valparaiso-1").S3Destination("your_identifier", destination)
-	con2 := Container("valparaiso-2").S3Destination("your_identifier", destination_with_key)
+	con2 := Container("valparaiso-2").S3Destination("your_identifier", destinationWithKey)
 	con3 := Container("valparaiso-3")
 
 	f1 := Function("annotate").
