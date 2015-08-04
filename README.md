@@ -2,8 +2,8 @@
 A [Blitline](http://www.blitline.com/) client written in Go
 
 # usage
-Goblitline can convert this: ![valpo](http://www.wondermondo.com/Images/SAmerica/Chile/Valparaiso/Valparaiso.jpg)
-into this: ![valpo-blitlined](http://s3.amazonaws.com/blitline/2015070716/5643/6i5bMoMpQtr8RU2ysHyAvbg.jpg)
+Goblitline can convert this: ![valpo](example.jpg)
+into this: ![valpo-blitlined](example_blitlined.jpg)
 By writing this:
 ```go
 	con := Container("valparaiso")
@@ -14,7 +14,7 @@ By writing this:
 		Save(con)
 
 	f2 := Function("annotate").
-		Params("text", "github.com/gchaincl/goblitline").
+		Params("text", "github.com/Typeform/goblitline").
 		Params("color", "#000000").
 		Params("y", -300).
 		Save(con)
