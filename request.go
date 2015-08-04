@@ -7,8 +7,7 @@ import (
 )
 
 const (
-	POST_URL   = "http://api.blitline.com/job"
-	LISTEN_URL = "http://cache.blitline.com/listen/"
+	POST_URL = "http://api.blitline.com/job"
 )
 
 func Post(body io.Reader) (*Response, error) {

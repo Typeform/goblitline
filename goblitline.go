@@ -7,8 +7,8 @@
 package goblitline
 
 // Returns a JobBuilder
-func Job(AppId string) JobBuilder {
-	return JobBuilder{}.ApplicationID(AppId)
+func Job(AppID string) JobBuilder {
+	return JobBuilder{}.ApplicationID(AppID)
 }
 
 // Returns a FunctionBuilder
@@ -17,8 +17,8 @@ func Function(name string) FunctionBuilder {
 }
 
 // Returns a ContainerBuilder
-func Container(imageId string) ContainerBuilder {
+func Container(ImageID string) ContainerBuilder {
 	return ContainerBuilder{}.
-		ImageIdentifier(imageId).
+		ImageIdentifier(ImageID).
 		Quality(75)
 }
