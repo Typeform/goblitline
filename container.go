@@ -26,14 +26,8 @@ func (b ContainerBuilder) ImageIdentifier(id string) ContainerBuilder {
 func (b ContainerBuilder) Quality(quality uint) ContainerBuilder {
 	return builder.Set(b, "Quality", quality).(ContainerBuilder)
 }
-
-func (b ContainerBuilder) S3Destination(identifier string, destination *S3Destination) ContainerBuilder {
-	if destination.Key == "" {
-		panic("You need to set S3Destination.Key")
-	}
-	if destination.Bucket == "" {
-		panic("You need to set S3Destination.Bucket")
-	}
+func (b ContainerBuilder) S3Destination(key string, bucket string) ContainerBuilder {
+	destination := &S3Destination{Key: key, Bucket: bucket}
 	return builder.Set(b, "S3Destination", destination).(ContainerBuilder)
 }
 
