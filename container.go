@@ -10,6 +10,7 @@ type S3Destination struct {
 type containerData struct {
 	ImageIdentifier string         `json:"image_identifier"`
 	Quality         uint           `json:"quality"`
+	Extension       string         `json:"extension"`
 	S3Destination   *S3Destination `json:"s3_destination,omitempty"`
 }
 
@@ -26,6 +27,11 @@ func (b ContainerBuilder) ImageIdentifier(id string) ContainerBuilder {
 func (b ContainerBuilder) Quality(quality uint) ContainerBuilder {
 	return builder.Set(b, "Quality", quality).(ContainerBuilder)
 }
+
+func (b ContainerBuilder) Extension(ext string) ContainerBuilder {
+	return builder.Set(b, "Extension", ext).(ContainerBuilder)
+}
+
 func (b ContainerBuilder) S3Destination(key string, bucket string) ContainerBuilder {
 	destination := &S3Destination{Key: key, Bucket: bucket}
 	return builder.Set(b, "S3Destination", destination).(ContainerBuilder)
