@@ -15,12 +15,12 @@ func Post(body io.Reader) (*Response, error) {
 	if err != nil {
 		return nil, err
 	}
+	defer res.Body.Close()
 
 	response := &Response{}
 	if err = json.NewDecoder(res.Body).Decode(response); err != nil {
 		return nil, err
 	}
-	defer res.Body.Close()
 
 	return response, nil
 }
